@@ -7,6 +7,7 @@ library(kableExtra)
 library(maftools)
 library(TCGAbiolinks)
 library(parallel)
+library(qvalue)
 
 ## ----style, echo = FALSE, results = 'asis'------------------------------------
 ##BiocStyle::markdown()
@@ -47,7 +48,7 @@ PMA <- getPM(A_example)
 mymutex <- getMutex(A=A_example,PM=PMA)
 
 
-## ----getMutex_Matrix, eval=TRUE-----------------------------------------------
+## ----getMutex_Matrix_2, eval=TRUE---------------------------------------------
 
 data("A_Matrix")
 
@@ -61,13 +62,18 @@ mymutex <- getMutex(A=A_Matrix,PM=PMA_Matrix)
 data("TCGA_COAD")
 data("PM_COAD")
 
-COAD_mutex <- getMutex(TCGA_COAD, PM_COAD)
+COAD_mutex <- getMutex(TCGA_COAD[1:100,], PM_COAD[1:100,])
 
 
 ## ----getMutex_COAD_exact, eval=TRUE-------------------------------------------
 data("TCGA_COAD")
 data("PM_COAD")
-COAD_mutex_exact <- getMutex(TCGA_COAD, PM_COAD,mixed = TRUE,th = 0.001)
+COAD_mutex_exact <- getMutex(TCGA_COAD[1:100,], PM_COAD[1:100,],mixed = TRUE,th = 0.001)
+
+## ----getMutex_COAD_exact_2, eval=TRUE-----------------------------------------
+data("TCGA_COAD")
+data("PM_COAD")
+COAD_mutex_exact <- getMutex(TCGA_COAD[1:100,], PM_COAD[1:100,],mixed = FALSE,method = "Binomial")
 
 ## ----getMutexAB_matrix, eval=TRUE---------------------------------------------
 
@@ -80,7 +86,7 @@ PMB <- getPM(B_example)
 mismutex <- getMutexAB(A=A_example, PM=PMA, B=B_example, PMB = PMB)
 
 
-## ----getMutexAB_Matrix, eval=TRUE---------------------------------------------
+## ----getMutexAB_Matrix_2, eval=TRUE-------------------------------------------
 
 data("A_Matrix")
 data("B_Matrix")
@@ -100,6 +106,17 @@ data("PM_AMP_COAD")
 
 mismutex <- getMutexAB(A=TCGA_COAD_AMP, PMA=PM_TCGA_COAD_AMP, 
                        B=AMP_COAD, PMB = PM_AMP_COAD)
+
+
+## ----getMutexAB_COAD_2, eval=TRUE---------------------------------------------
+
+data("TCGA_COAD_AMP")
+data("AMP_COAD")
+data("PM_TCGA_COAD_AMP")
+data("PM_AMP_COAD")
+
+mismutex <- getMutexAB(A=TCGA_COAD_AMP[1:100,], PMA=PM_TCGA_COAD_AMP[1:100,], 
+                       B=AMP_COAD[1:50,], PMB = PM_AMP_COAD[1:50,])
 
 
 ## ----getMutexGroup_example, eval=TRUE-----------------------------------------
@@ -139,7 +156,16 @@ getMutexGroup(A, PM, "Exclusivity")
 #  somaticInteractions(maf = coad.maf, top = 35, pvalue = c(1e-2, 2e-3))
 
 ## ----discsomInter_COAD, echo=TRUE, eval=FALSE, message=FALSE, warning=FALSE, results='hide'----
-#  discoversomaticInteractions(maf = coad.maf, top = 35, pvalue = c(1e-2, 2e-3))
+#  discoversomaticInteractions(maf = coad.maf, top = 35, pvalue = c(1e-2, 2e-3),getMutexMixed=FALSE)
+
+## ----qvalue, eval=TRUE--------------------------------------------------------
+
+data("TCGA_COAD")
+data("PM_COAD")
+COAD_mutex <- getMutex(TCGA_COAD[1:100,], PM_COAD[1:100,])
+COAD_mutex_qvalue <- COAD_mutex
+COAD_mutex_qvalue@x <- qvalue::qvalue(COAD_mutex_qvalue@x)$qvalue
+
 
 ## -----------------------------------------------------------------------------
 sessionInfo()
