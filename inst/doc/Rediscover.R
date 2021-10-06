@@ -99,24 +99,46 @@ mismutex <- getMutexAB(A=A_Matrix, PM=PMA, B=B_Matrix, PMB = PMB)
 
 ## ----getMutexAB_COAD, eval=TRUE-----------------------------------------------
 
-data("TCGA_COAD_AMP")
+data("TCGA_COAD")
+data("PM_COAD")
 data("AMP_COAD")
-data("PM_TCGA_COAD_AMP")
 data("PM_AMP_COAD")
 
-mismutex <- getMutexAB(A=TCGA_COAD_AMP, PMA=PM_TCGA_COAD_AMP, 
-                       B=AMP_COAD, PMB = PM_AMP_COAD)
+common <- intersect(colnames(TCGA_COAD), colnames(AMP_COAD))
+
+keep <- match(common,colnames(TCGA_COAD))
+TCGA_COAD_100 <- TCGA_COAD[1:100,keep]
+PM_TCGA_COAD_100 <- PM_COAD[1:100,keep]
+
+keep <- match(common,colnames(AMP_COAD))
+AMP_COAD_100 <- AMP_COAD[1:100,keep]
+PM_AMP_COAD_100 <- PM_AMP_COAD[1:100,keep]
+
+mismutex <- getMutexAB(A=TCGA_COAD_100, PMA=PM_TCGA_COAD_100, 
+                       B=AMP_COAD_100, PMB = PM_AMP_COAD_100)
+
 
 
 ## ----getMutexAB_COAD_2, eval=TRUE---------------------------------------------
 
-data("TCGA_COAD_AMP")
+data("TCGA_COAD")
+data("PM_COAD")
 data("AMP_COAD")
-data("PM_TCGA_COAD_AMP")
 data("PM_AMP_COAD")
 
-mismutex <- getMutexAB(A=TCGA_COAD_AMP[1:100,], PMA=PM_TCGA_COAD_AMP[1:100,], 
-                       B=AMP_COAD[1:50,], PMB = PM_AMP_COAD[1:50,])
+common <- intersect(colnames(TCGA_COAD), colnames(AMP_COAD))
+
+keep <- match(common,colnames(TCGA_COAD))
+TCGA_COAD_100 <- TCGA_COAD[1:100,keep]
+PM_TCGA_COAD_100 <- PM_COAD[1:100,keep]
+
+keep <- match(common,colnames(AMP_COAD))
+AMP_COAD_150 <- AMP_COAD[1:150,keep]
+PM_AMP_COAD_150 <- PM_AMP_COAD[1:150,keep]
+
+mismutex <- getMutexAB(A=TCGA_COAD_100, PMA=PM_TCGA_COAD_100, 
+                       B=AMP_COAD_150, PMB = PM_AMP_COAD_150)
+
 
 
 ## ----getMutexGroup_example, eval=TRUE-----------------------------------------
