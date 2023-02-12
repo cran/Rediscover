@@ -5,7 +5,7 @@ library(Rediscover)
 library(dplyr)
 library(kableExtra)
 library(maftools)
-library(TCGAbiolinks)
+# library(TCGAbiolinks) no  available in current version of bioconductor
 library(parallel)
 library(qvalue)
 

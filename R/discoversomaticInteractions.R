@@ -33,12 +33,15 @@
 #' 
 #' @examples 
 #' \donttest{
+#' \dontrun{
 #' 
 #'   #An example of how to perform the function,
 #'   #using data from TCGA, Colon Adenocarcinoma in this case. 
 #'   
-#'   coad.maf <- GDCquery_Maf("COAD", pipelines = "muse") %>% read.maf
+#'   #coad.maf <- GDCquery_Maf("COAD", pipelines = "muse") %>% read.maf
+#'   coad.maf <- read.maf(GDCquery_Maf("COAD", pipelines = "muse"))
 #'   discoversomaticInteractions(maf = coad.maf, top = 35, pvalue = c(1e-2, 2e-3))
+#'   }
 #' 
 #' }
 #' 
@@ -119,17 +122,20 @@ discoversomaticInteractions <- function (maf, top = 25, genes = NULL, pvalue = c
     mutMat = rbind(mutMat, missing.tsbs)
   }
   
-  PM <- getPM(t(as.matrix(mutMat)))
-  PM <- as.matrix(PM)
-  rownames(PM) <- colnames(mutMat)
-  
-  interactions <- getMutex(t(as.matrix(mutMat[,topgenes])), PM = PM[topgenes,],
+  PM_new <- getPM(t(as.matrix(mutMat)))
+  # PM_new <- as.matrix(PM_new)
+  # rownames(PM_new) <- colnames(mutMat)
+  ffx <- match(topgenes, colnames(mutMat))
+  miPM <- PM_new[ffx,]
+  interactions <- getMutex(A = t(as.matrix(mutMat[,topgenes])), PM = miPM,
                            lower.tail = T,method = getMutexMethod,
                            mixed = getMutexMixed)
-
+  
+  rownames(interactions) <- colnames(interactions) <- topgenes
+  
   interactions <- log10(interactions * .5) *(interactions <.5) - 
     log10((1-interactions) * .5) *(interactions >=.5)
-  interactions <- as.matrix(interactions[topgenes, topgenes])
+  interactions <- as.matrix(interactions)
 
   # TODO: does it make any sense the odds ratio for the Poisson-binomial??
   # oddsRatio <- oddsGenes <- sapply(1:ncol(mutMat), function(i) sapply(1:ncol(mutMat), 

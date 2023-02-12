@@ -88,12 +88,15 @@ the 'method' parameter of the getMutex function. For more details run '?getMutex
 }
 \examples{
 \donttest{
+\dontrun{
 
   #An example of how to perform the function,
   #using data from TCGA, Colon Adenocarcinoma in this case. 
   
-  coad.maf <- GDCquery_Maf("COAD", pipelines = "muse") \%>\% read.maf
+  #coad.maf <- GDCquery_Maf("COAD", pipelines = "muse") \%>\% read.maf
+  coad.maf <- read.maf(GDCquery_Maf("COAD", pipelines = "muse"))
   discoversomaticInteractions(maf = coad.maf, top = 35, pvalue = c(1e-2, 2e-3))
+  }
 
 }
 

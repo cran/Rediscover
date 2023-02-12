@@ -1,12 +1,9 @@
 Package: Rediscover
 Type: Package
 Title: Identify Mutually Exclusive Mutations
-Version: 0.3.0
-Authors@R: c(person("Juan A. Ferrer-Bonsoms", "Developer", role = c("aut", "cre"),
-                     email = "jafhernandez@tecnun.es"),
-              person("Laura Jareno", "Developer", role = "aut"),
-              person("Angel Rubio", "User", role = c("aut","ctb"),
-                     email = "arubio@tecnun.es"))
+Version: 0.3.1
+Author: Juan A. Ferrer-Bonsoms, Laura Jareno, and Angel Rubio
+Maintainer: Juan A. Ferrer-Bonsoms <jafhernandez@tecnun.es>
 Description: An optimized method for identifying mutually 
     exclusive genomic events.  Its main contribution is a
     statistical analysis based on the Poisson-Binomial 
@@ -23,18 +20,14 @@ Depends: R (>= 4.0), Matrix, speedglm, PoissonBinomial,
         ShiftConvolvePoibin, utils, matrixStats
 Imports: maftools, data.table, parallel, RColorBrewer, methods
 Suggests: knitr, rmarkdown, RUnit, BiocStyle, BiocGenerics, dplyr,
-        kableExtra, TCGAbiolinks, magick, stats, qvalue
+        kableExtra, magick, stats, qvalue
 License: Artistic-2.0
 LazyData: true
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.0
 Encoding: UTF-8
 biocViews: mutex
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2021-10-06 08:59:56 UTC; jferrerb
-Author: Juan A. Ferrer-Bonsoms Developer [aut, cre],
-  Laura Jareno Developer [aut],
-  Angel Rubio User [aut, ctb]
-Maintainer: Juan A. Ferrer-Bonsoms Developer <jafhernandez@tecnun.es>
+Packaged: 2023-02-12 16:29:36 UTC; jferrerb
 Repository: CRAN
-Date/Publication: 2021-10-06 09:20:02 UTC
+Date/Publication: 2023-02-12 22:40:10 UTC

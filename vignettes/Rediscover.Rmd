@@ -24,7 +24,7 @@ library(Rediscover)
 library(dplyr)
 library(kableExtra)
 library(maftools)
-library(TCGAbiolinks)
+# library(TCGAbiolinks) no  available in current version of bioconductor
 library(parallel)
 library(qvalue)
 ```
@@ -354,6 +354,8 @@ getMutexGroup(A, PM, "Exclusivity")
 
 
 # Application of *Rediscover* to maftools
+
+For the example shown below, the "TCGAbiolinks" library must be installed which is not available in the current version of bioconductor. However, it can be easily downloaded by accessing previous versions of Bioconductor.
 
 Among the possible applications of *Rediscover* stands up the possibility of representing graphically the results obtained by applying `discoverSomaticInteractions` function. In this case, maftools has been used in Colon Adenocarcinoma (COAD) and different plots have been performed to study the results obtained, which has allowed the study of co-ocurring and mutually exclusive genes. 
 

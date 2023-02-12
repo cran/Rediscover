@@ -68,9 +68,13 @@ we  implemented three different approximations of the Poison-Binomial distributi
   # using a matrix of class Matrix. 
   
   data("A_Matrix")
+  A_Matrix <- A_Matrix[1:100,1:50]
+  #small for the example
   PMA_Matrix <- getPM(A_Matrix)
   mismutex <- getMutex(A=A_Matrix,PM=PMA_Matrix)
   
+  
+  \dontrun{
   #Finally, the last example, shows a real 
   #example of how to perform this function when using 
   #data from TCGA, Colon Adenocarcinoma in this case. 
@@ -79,6 +83,7 @@ we  implemented three different approximations of the Poison-Binomial distributi
   data("PM_COAD")
   
   PM_COAD <- getMutex(TCGA_COAD, PM_COAD)
+  }
   }
 
 }

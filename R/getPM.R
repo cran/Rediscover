@@ -23,11 +23,13 @@
 #'   data("A_Matrix")
 #'   PMA_Matrix <- getPM(A_Matrix)
 #'   
+#'   \dontrun{
 #'   #Finally, the last example, shows a real example 
 #'   #of how to perform this function when when using
 #'   #data from TCGA, Colon Adenocarcinoma in this case: 
 #'   data("TCGA_COAD")
 #'   PM_COAD <- getPM(TCGA_COAD)
+#'   }
 #'
 #'
 #' @import Matrix

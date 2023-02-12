@@ -45,6 +45,7 @@
 #'   #real example of how to perform this function
 #'   # when using data from TCGA, Colon Adenocarcinoma in this case. 
 #'   
+#'   \dontrun{
 #'   data("TCGA_COAD_AMP")
 #'   data("AMP_COAD")
 #'   data("PM_TCGA_COAD_AMP")
@@ -54,6 +55,7 @@
 #'                          PMA=PM_TCGA_COAD_AMP,
 #'                          B=AMP_COAD,
 #'                          PMB = PM_AMP_COAD)
+#'    }
 #'  }
 #'
 #' @import Matrix
@@ -117,7 +119,7 @@ getMutexAB <- function(A, PMA = getPM(A), B, PMB = getPM(B), lower.tail = TRUE,
   }
   
   Mevents <- A %*% t(B)
-  Mevents <- Matrix(Mevents)
+  Mevents <- Matrix(Mevents,sparse = FALSE)
   
   
   if(ncol(A)<3800){
@@ -281,7 +283,7 @@ getMutexAB <- function(A, PMA = getPM(A), B, PMB = getPM(B), lower.tail = TRUE,
       stopCluster(cl)
       pvalue <- do.call(rbind,pvalue)
       pvals[cbind(pvalue[,1],pvalue[,2])] <- pvalue[,3]
-      pvals[cbind(pvalue[,2],pvalue[,1])] <- pvalue[,3]
+      # pvals[cbind(pvalue[,2],pvalue[,1])] <- pvalue[,3]
     }else{
       for(i in 1:nrow(llx)){
         # i <- 1
@@ -308,7 +310,7 @@ getMutexAB <- function(A, PMA = getPM(A), B, PMB = getPM(B), lower.tail = TRUE,
           }
           pvals[idx_kk][oox] <- pvalue
         }
-        pvals[idx_kk[,c(2,1),drop=F]] <- pvals[idx_kk] # To keep symmetry
+        # pvals[idx_kk[,c(2,1),drop=F]] <- pvals[idx_kk] # To keep symmetry
       }
     }
     

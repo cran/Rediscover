@@ -77,6 +77,7 @@ we  implemented three different approximations of the Poison-Binomial distributi
   #real example of how to perform this function
   # when using data from TCGA, Colon Adenocarcinoma in this case. 
   
+  \dontrun{
   data("TCGA_COAD_AMP")
   data("AMP_COAD")
   data("PM_TCGA_COAD_AMP")
@@ -86,6 +87,7 @@ we  implemented three different approximations of the Poison-Binomial distributi
                          PMA=PM_TCGA_COAD_AMP,
                          B=AMP_COAD,
                          PMB = PM_AMP_COAD)
+   }
  }
 
 }
