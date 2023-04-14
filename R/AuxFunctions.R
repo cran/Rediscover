@@ -39,7 +39,7 @@ speedglm.wfit2 <- function (y, X, intercept = TRUE, weights = NULL, row.chunk = 
   linkinv <- family$linkinv
   mu.eta <- family$mu.eta
   if (is.null(sparse))
-    sparse <- is.sparse(X = X, sparselim, camp)
+    sparse <- is.sparse_2(X = X, sparselim, camp)
   if (is.null(start)) {
     if (is.null(mustart))
       eval(family$initialize)
@@ -79,7 +79,7 @@ speedglm.wfit2 <- function (y, X, intercept = TRUE, weights = NULL, row.chunk = 
     if (iter == 1 & method != "qr") {
       variable <- colnames(X)
       ris <- if (eigendec)
-        control(XTX, , tol.values, tol.vectors, , method)
+        control_2(XTX, , tol.values, tol.vectors, , method)
       else list(rank = nvar, pivot = 1:nvar)
       ok <- ris$pivot[1:ris$rank]
       if (eigendec) {
@@ -176,4 +176,63 @@ get_os <- function(){
 }
 
 
+
+
+
+#functions taken from speedglm 
+#a former CRAN R package:
+
+#' @rdname InternalFunctions 
+control_2 <- function(B, symmetric = TRUE, tol.values = 1e-07, tol.vectors = 1e-07,
+                               out.B = TRUE, method = c("eigen","Cholesky")){
+  method <- match.arg(method)
+  if (!(method %in% c("eigen","Cholesky"))) 
+    stop("method not valid or not implemented")
+  if (method=="eigen"){
+    n <- ncol(B)
+    sa <- 1:n
+    nok <- NULL
+    auto <- eigen(B, symmetric, only.values = TRUE)
+    totcoll <- sum(abs(auto$values) < tol.values)
+    ncoll <- totcoll
+    rank <- n - ncoll
+    i <- 1
+    while (ncoll != 0) {
+      auto <- eigen(B, symmetric)
+      j <- as.matrix(abs(auto$vectors[, n]) < tol.vectors)
+      coll <- which(!j)
+      coll <- coll[length(coll)]
+      B <- B[-coll, -coll]
+      nok[i] <- coll
+      ncoll <- sum(abs(auto$values) < tol.values) - 1
+      n <- ncol(B)
+      i <- i + 1
+    }
+    ok <- if (!is.null(nok))
+      sa[-nok] else sa
+  }
+  if (method=="Cholesky"){
+    A <- chol(B, pivot = TRUE)
+    pivot <- attributes(A)$"pivot"
+    rank <- attributes(A)$"rank"
+    ok <- sort(pivot[1:rank])
+    nok <- if (rank<length(pivot)) pivot[(rank+1):length(pivot)]  else NULL
+    B <- B[ok,ok]
+  }
+  rval <- if (out.B) list(XTX = B, rank = rank, pivot = c(ok, nok)) else
+    list(rank = rank, pivot =  c(ok, nok))
+  
+  rval
+}
+
+
+#' @rdname InternalFunctions 
+is.sparse_2 <- function(X,sparselim=.9,camp=.05){
+  if (prod(dim(X))<500) camp <- 1
+  subX<-sample(X,round((nrow(X)*ncol(X)*camp),digits=0),replace=FALSE)
+  p<-sum(subX==0)/prod(length(subX))
+  if (p > sparselim) sparse <- TRUE else sparse <- FALSE
+  attr(sparse,"proportion of zeros in the sample")<-p
+  sparse
+}
 

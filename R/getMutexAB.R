@@ -62,7 +62,6 @@
 #' @import parallel
 #' @importFrom utils combn
 #' @importFrom stats pnorm dnorm pbeta
-#' @importFrom speedglm control
 #' @importFrom PoissonBinomial ppbinom
 #' @importFrom matrixStats rowProds
 #' @importFrom stats rnorm
@@ -186,7 +185,7 @@ getMutexAB <- function(A, PMA = getPM(A), B, PMB = getPM(B), lower.tail = TRUE,
     
     
     
-    # pvals <- as(forceSymmetric(pvals, "L"),"dspMatrix")
+    # pvals <- as(forceSymmetric(pvals, "L"),"packedMatrix")
   }
   ###### Binomial ######
   if (method == "Binomial"){
@@ -216,7 +215,7 @@ getMutexAB <- function(A, PMA = getPM(A), B, PMB = getPM(B), lower.tail = TRUE,
     
     
     
-    # pvals <- as(forceSymmetric(pvals, "L"),"dspMatrix")
+    # pvals <- as(forceSymmetric(pvals, "L"),"packedMatrix")
   }
   ###### exact ######
   if (method == "Exact"){
@@ -515,7 +514,7 @@ getMutexAB <- function(A, PMA = getPM(A), B, PMB = getPM(B), lower.tail = TRUE,
     }
   }
   
-  # pvals <- as(pvals, "dspMatrix")
+  # pvals <- as(pvals, "packedMatrix")
   return(pvals)
 }
 

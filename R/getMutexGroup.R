@@ -37,7 +37,6 @@
 #'
 #' @import Matrix
 #' @import parallel
-#' @importFrom speedglm control
 #' @importFrom PoissonBinomial ppbinom dpbinom
 #' @export
 

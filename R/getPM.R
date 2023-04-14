@@ -34,7 +34,6 @@
 #'
 #' @import Matrix
 #' @importFrom stats coef binomial gaussian dnorm pnorm
-#' @importFrom speedglm control is.sparse
 #' @export
 
 

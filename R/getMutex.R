@@ -62,7 +62,6 @@
 #' @import parallel
 #' @importFrom utils combn
 #' @importFrom stats pnorm dnorm pbeta
-#' @importFrom speedglm control
 #' @importFrom PoissonBinomial ppbinom
 #' @importFrom ShiftConvolvePoibin ppoisbin
 #' @importFrom matrixStats rowProds
@@ -136,7 +135,7 @@ getMutex <- function(A = NULL, PM = getPM(A), lower.tail = TRUE,
     # ppp <- pbinom(Mevents - s, n,p, lower.tail = lower.tail)
     pvals <- pstar
     pvals[II] <- ppp
-    pvals <- as(forceSymmetric(pvals, "L"),"dspMatrix")
+    pvals <- as(forceSymmetric(pvals, "L"),"packedMatrix")
   }
   ###### Binomial ########
   if (method == "Binomial") {
@@ -160,7 +159,7 @@ getMutex <- function(A = NULL, PM = getPM(A), lower.tail = TRUE,
     pvals[II] <- ppp
     
     
-    pvals <- as(forceSymmetric(pvals, "L"),"dspMatrix")
+    pvals <- as(forceSymmetric(pvals, "L"),"packedMatrix")
   }
   ####### RefinedNormal #########
   if (method == "RefinedNormal") {
@@ -171,9 +170,9 @@ getMutex <- function(A = NULL, PM = getPM(A), lower.tail = TRUE,
     sqrtVarEst <- sqrt(varEst) # expected standard deviations
     
     kk1 <- (Mevents + 0.5 - MeanEst)/sqrtVarEst
-    kk1 <- as(kk1, "dspMatrix")
+    kk1 <- as(kk1, "packedMatrix")
     ind <- gammEst/(6 * sqrtVarEst^3)
-    ind <- as(ind, "dspMatrix")
+    ind <- as(ind, "packedMatrix")
     
     pvals <- kk1
     if (lower.tail) {
@@ -514,12 +513,12 @@ getMutex <- function(A = NULL, PM = getPM(A), lower.tail = TRUE,
       }
     }
     diag(pvals) <- 0
-    pvals <- as(pvals, "dspMatrix")
+    pvals <- as(pvals, "packedMatrix")
   }
   if(verbose){
     message("Building output...")
   }
-  pvals <- as(pvals, "dspMatrix")
+  pvals <- as(pvals, "packedMatrix")
   return(pvals)
 }
 

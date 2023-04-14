@@ -5,6 +5,8 @@
 \alias{speedglm.wfit2}
 \alias{expand.grid_fast}
 \alias{get_os}
+\alias{control_2}
+\alias{is.sparse_2}
 \title{Rediscover Internal Functions}
 \usage{
 speedglm.wfit2(
@@ -36,6 +38,17 @@ speedglm.wfit2(
 expand.grid_fast(a, b)
 
 get_os()
+
+control_2(
+  B,
+  symmetric = TRUE,
+  tol.values = 1e-07,
+  tol.vectors = 1e-07,
+  out.B = TRUE,
+  method = c("eigen", "Cholesky")
+)
+
+is.sparse_2(X, sparselim = 0.9, camp = 0.05)
 }
 \value{
 Internal outputs
