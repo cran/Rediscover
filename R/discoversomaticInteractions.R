@@ -68,6 +68,10 @@ discoversomaticInteractions <- function (maf, top = 25, genes = NULL, pvalue = c
                                          limitColorBreaks = TRUE){
   
   
+  if(is.null(maf)){
+    stop("not input maf file")
+  }
+  
   oldpar <- par(no.readonly = TRUE)
   on.exit(par(oldpar))
   
@@ -91,9 +95,6 @@ discoversomaticInteractions <- function (maf, top = 25, genes = NULL, pvalue = c
   points <- NULL
   axis <- NULL
   
-  if(is.null(maf)){
-    stop("not input maf file")
-  }
   
   if (is.null(genes)) {
     genes = maf@data$Hugo_Symbol

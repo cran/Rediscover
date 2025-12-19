@@ -1,3 +1,7 @@
+# version 0.3.3:
+
+fix bug in the computing of exact p.values.
+
 # version 0.3.1:
 
 remove dependency of 'TCGAbiolinks'.

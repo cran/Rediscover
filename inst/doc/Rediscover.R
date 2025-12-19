@@ -12,10 +12,10 @@ library(qvalue)
 ## ----style, echo = FALSE, results = 'asis'------------------------------------
 ##BiocStyle::markdown()
 
-## ---- eval=FALSE--------------------------------------------------------------
-#  
-#  install.packages("Rediscover")
-#  
+## ----eval=FALSE---------------------------------------------------------------
+# 
+# install.packages("Rediscover")
+# 
 
 ## ----getPM_matrix, eval=TRUE--------------------------------------------------
 
@@ -169,16 +169,16 @@ getMutexGroup(A, PM, "Exclusivity")
 
 
 ## ----maftools_COAD, echo=TRUE, eval=FALSE, message=FALSE, warning=FALSE, results='hide'----
-#  coad.maf <- GDCquery_Maf("COAD", pipelines = "muse") %>% read.maf
+# coad.maf <- GDCquery_Maf("COAD", pipelines = "muse") %>% read.maf
 
 ## ----oncoplot_COAD, echo=TRUE, eval=FALSE, message=FALSE, warning=FALSE-------
-#  oncoplot(coad.maf, top = 35)
+# oncoplot(coad.maf, top = 35)
 
 ## ----somInter_COAD, echo=TRUE, eval=FALSE, message=FALSE, warning=FALSE, results='hide'----
-#  somaticInteractions(maf = coad.maf, top = 35, pvalue = c(1e-2, 2e-3))
+# somaticInteractions(maf = coad.maf, top = 35, pvalue = c(1e-2, 2e-3))
 
 ## ----discsomInter_COAD, echo=TRUE, eval=FALSE, message=FALSE, warning=FALSE, results='hide'----
-#  discoversomaticInteractions(maf = coad.maf, top = 35, pvalue = c(1e-2, 2e-3),getMutexMixed=FALSE)
+# discoversomaticInteractions(maf = coad.maf, top = 35, pvalue = c(1e-2, 2e-3),getMutexMixed=FALSE)
 
 ## ----qvalue, eval=TRUE--------------------------------------------------------
 

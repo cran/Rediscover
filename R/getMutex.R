@@ -103,6 +103,9 @@ getMutex <- function(A = NULL, PM = getPM(A), lower.tail = TRUE,
   Mevents <- Matrix(A)
   Mevents <- as.matrix(tcrossprod(Mevents) )
   
+  if(lower.tail == FALSE){
+    Mevents = Mevents-1
+  }
   
   if(ncol(A)<3800){
     ppoisbin_method <- "DC"  

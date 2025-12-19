@@ -510,7 +510,7 @@ getMutexAB <- function(A, PMA = getPM(A), B, PMB = getPM(B), lower.tail = TRUE,
           pvals[p_to_ad[,c(1,2),drop=F]] <- p_to_ad[,3]
         }
       }
-      pvals <- as(pvals,"dgCMatrix")
+      pvals <- as(pvals,"CsparseMatrix")
     }
   }
   
